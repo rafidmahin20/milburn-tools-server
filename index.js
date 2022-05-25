@@ -56,6 +56,12 @@ async function run(){
             res.send(result);
         })
 
+        app.post('/tool', async(req, res) =>{
+            const newItem = req.body;
+            const result =await toolCollection.insertOne(newItem);
+            res.send(result);
+        })
+
         app.get('/user', verifyJWT, async(req, res) =>{
             const users = await userCollection.find().toArray();
             res.send(users);
