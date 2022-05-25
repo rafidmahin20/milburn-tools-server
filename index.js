@@ -17,6 +17,7 @@ async function run(){
     try{
         await client.connect()
         const toolCollection = client.db('milburn_tools').collection('tools');
+        const reviewCollection = client.db('milburn_tools').collection('reviews');
 
         app.get('/tool', async(req, res) =>{
             const query = {};
@@ -30,6 +31,12 @@ async function run(){
             const query = {_id: ObjectId(id)};
             const tools = await toolCollection.findOne(query);
             res.send(tools);
+        })
+
+        app.post('/review', async(req, res) =>{
+            const newReview = req.body;
+            const result = await reviewCollection.insertOne(newReview);
+            res.send(result);
         })
     }
     finally{}
