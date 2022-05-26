@@ -33,6 +33,7 @@ async function run(){
     try{
         await client.connect()
         const toolCollection = client.db('milburn_tools').collection('tools');
+        const orderCollection = client.db('milburn_tools').collection('orders');
         const reviewCollection = client.db('milburn_tools').collection('reviews');
         const userCollection = client.db('milburn_tools').collection('users');
 
@@ -50,9 +51,9 @@ async function run(){
             res.send(tools);
         })
 
-        app.post('/tool', async(req, res) =>{
+        app.post('/review', async(req, res) =>{
             const newReview = req.body;
-            const result = await toolCollection.insertOne(newReview);
+            const result = await reviewCollection.insertOne(newReview);
             res.send(result);
         })
 
