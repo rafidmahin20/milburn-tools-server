@@ -36,6 +36,7 @@ async function run(){
         const orderCollection = client.db('milburn_tools').collection('orders');
         const reviewCollection = client.db('milburn_tools').collection('reviews');
         const userCollection = client.db('milburn_tools').collection('users');
+        const profileCollection = client.db('milburn_tools').collection('profiles');
 
         app.get('/tool', async(req, res) =>{
             const query = {};
@@ -67,6 +68,12 @@ async function run(){
         app.post('/tool', async(req, res) =>{
             const newItem = req.body;
             const result =await toolCollection.insertOne(newItem);
+            res.send(result);
+        })
+
+        app.post('/profile', async(req, res) =>{
+            const newProfile = req.body;
+            const result = await profileCollection.insertOne(newProfile);
             res.send(result);
         })
 
